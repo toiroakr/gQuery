@@ -2,7 +2,10 @@ package com.toiro_a.gquery;
 
 import com.google.gson.Gson;
 
+import java.util.List;
+
 /**
+ * class for user to select
  * Created by higuchiakira on 2015/08/03.
  */
 public class GQuery {
@@ -24,14 +27,14 @@ public class GQuery {
         return this;
     }
 
-    private GQuery(Class<?> targetClass) {
-        parser = new GQueryParser();
-        parser.init(gson, targetClass);
+    public <Target> Target select(String json, Class<Target> targetClass) {
+        init(targetClass);
+        return parser.select(json);
     }
 
-    public <Target> Target select(String json, Class<Target> targetClass) {
-        this.init(targetClass);
-        return parser.select(json);
+    public <Target> List<Target> selectList(String json, Class<Target> targetClass) {
+        init(targetClass);
+        return parser.selectList(json);
     }
 
     @SuppressWarnings("unchecked")
@@ -41,7 +44,7 @@ public class GQuery {
 
     @SuppressWarnings("unchecked")
     public <Type> Type get(String json, String[] queries, Class<Type> targetClass) {
-        this.init(targetClass);
+        init(targetClass);
         return (Type) parser.getValue(json, queries, targetClass);
     }
 }

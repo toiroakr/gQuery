@@ -6,6 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * annotation to specify element selector
  * Created by higuchiakira on 2015/08/03.
  */
 @Target({ElementType.TYPE, ElementType.FIELD})

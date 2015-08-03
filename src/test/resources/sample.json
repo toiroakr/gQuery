@@ -1,22 +1,22 @@
 {
 	"results": {
-		"sample": {
-			"name": "sample name",
-			"img": {
-					"mobile": {
-					"l": "http://sample.img/mobille_l.jpg",
-					"s": "http://sample.img/mobille_s.jpg"
-				},
-				"pc": {
-					"l": "http://sample.img/pc_l.jpg",
-					"m": "http://sample.img/pc_m.jpg",
-					"s": "http://sample.img/pc_s.jpg"
-				}
-			},
-			"a": true,
-			"b": [[1,2,3], [1,2,3]],
-			"c": [[{"foo": 1, "bar": 3}], [{"foo": 2, "bar": 1}]],
-			"d": [[{"foo": "1", "bar": false}], [{"foo": "2", "bar": 1}]]
-		}
+	  "sample": {
+		"name": "sample name",
+		"img": {
+		  "mobile": {
+			"l": "http://sample.img/mobille_l.jpg",
+			"s": "http://sample.img/mobille_s.jpg"
+		  },
+		  "pc": {
+			"l": "http://sample.img/pc_l.jpg",
+			"m": "http://sample.img/pc_m.jpg",
+			"s": "http://sample.img/pc_s.jpg"
+		  }
+		},
+		"a": true,
+		"b": [[1,2,3], [1,2,3]],
+		"c": [{"foo": 1, "bar": 3}, {"foo": 2, "bar": 1}],
+		"d": [{"foo": "1", "bar": false}, {"foo": "2", "bar": 1}]
+	  }
 	}
 }

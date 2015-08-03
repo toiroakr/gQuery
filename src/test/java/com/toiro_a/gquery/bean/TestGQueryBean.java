@@ -1,4 +1,4 @@
-package com.toiro_a.gquery;
+package com.toiro_a.gquery.bean;
 
 import com.google.gson.Gson;
 import com.toiro_a.gquery.annotation.GSelect;
@@ -12,55 +12,34 @@ import java.util.List;
 import java.util.Map;
 
 @GSelect("results sample")
-public class GQuerySample {
+public class TestGQueryBean {
     @GSelect("name")
-    private String name;
+    public String name;
     @GSelect("a")
-    private boolean a;
+    public boolean a;
     @GSelect("b")
-    private int[][] int2DArray;
+    public int[][] b;
     @GSelect("b")
-    private List<int[]> intArrayList;
+    public List<int[]> intArrayList;
     @GSelect("b")
-    private List<List<Integer>> listOfIntegerList;
+    public List<List<Integer>> listOfIntegerList;
     @GSelect("c")
-    private List<Map<String, Integer>> listOfMap;
+    public List<Map<String, Integer>> c;
     @GSelect("c foo")
-    private List<int[]> singleKeyInListOfMap;
+    public List<Integer> singleKeyInListOfMap;
     @GSelect("c foo")
-    private int[][] singleKeyInArrayOfMap;
+    public int[] singleKeyInArrayOfMap;
     @GSelect("d bar")
-    private List<String> singleKeyInListOfObjectMap;
+    public List<Object> dBar;
     @GSelect("d bar")
-    private Object[][] singleKeyInObjectArrayOfMap;
+    public Object[] singleKeyInObjectArrayOfMap;
     @GSelect("img mobile")
-    private Map<String, String> mobileImgs;
+    public Map<String, String> mobileImgs;
     @GSelect("img pc")
-    private HashMap<String, String> pcImgs;
+    public HashMap<String, String> pcImgs;
     public static final String L = "l";
     public static final String M = "m";
     public static final String S = "s";
-    public static Object UNDEFINED_OOBJECT;
-    public static int UNDEFINED_INT;
-    public static char UNDEFINED_CHAR;
-    public static boolean UNDEFINED_BOOLEAN;
-
-    public static void main(String[] args) throws IOException, NoSuchFieldException, SecurityException {
-        BufferedReader br = new BufferedReader(new FileReader("src/test/resources/sample.json"));
-        String json = "";
-        String line = br.readLine();
-        do {
-            json += line;
-            line = br.readLine();
-        } while (line != null);
-        br.close();
-
-        GQuerySample sample = new GQuery().select(json, GQuerySample.class);
-        System.out.println(sample);
-
-        String pcPhotoL = new GQuery().get(json, "results sample img pc l", String.class);
-        System.out.println(pcPhotoL);
-    }
 
     @Override
     public String toString() {

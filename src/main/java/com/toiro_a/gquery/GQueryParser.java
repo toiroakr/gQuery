@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.toiro_a.gquery.annotation.GSelect;
 
+import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * class to parsing json
  * Created by higuchiakira on 2015/08/03.
  */
 public class GQueryParser {
@@ -24,16 +26,50 @@ public class GQueryParser {
     protected void init(Gson gson, Class<?> targetClass) {
         this.gson = gson;
         this.targetClass = targetClass;
+        logger.setLevel(Level.SEVERE);
+    }
+    public <Target> List<Target> selectList(String json) {
+        List<Target> list = (List<Target>) getList(targetClass);
+        JsonArray baseArray = (JsonArray) getBaseElement(json);
+
+        for (JsonElement baseElement : baseArray) {
+            Target target = newTargetInstance();
+            setFields(target, baseElement);
+            list.add(target);
+        }
+
+        return list;
+    }
+
+    private <Target> List<Target> getList(Class<Target> targetClass) {
+        return new ArrayList<Target>();
     }
 
     protected <Target> Target select(String json) {
         Target target = newTargetInstance();
-        JsonElement baseElement = null;
-        baseElement = getClassObject(json);
+        JsonElement baseElement = getBaseElement(json);
         setFields(target, baseElement);
 
         logger.log(Level.INFO, "get : " + toString(target));
         return target;
+    }
+
+    @SuppressWarnings("unchecked")
+    private <Target> Target newTargetInstance() {
+        Target target = null;
+        try {
+            target = (Target) targetClass.newInstance();
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "error on creating target class instance : " + targetClass.getName(), e);
+        }
+        return target;
+    }
+
+    private JsonElement getBaseElement(String json) {
+        JsonElement jsonElement = gson.fromJson(json, JsonElement.class);
+        GSelect gSelect = targetClass.getAnnotation(GSelect.class);
+        String[] selectors = gSelect.value().split(" ");
+        return select(jsonElement, selectors);
     }
 
     private String toString(Object obj) {
@@ -108,24 +144,6 @@ public class GQueryParser {
             logger.log(Level.SEVERE, message, e);
         }
         return selected;
-    }
-
-    @SuppressWarnings("unchecked")
-    private <Target> Target newTargetInstance() {
-        Target target = null;
-        try {
-            target = (Target) targetClass.newInstance();
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "error on creating target class instance : " + targetClass.getName(), e);
-        }
-        return target;
-    }
-
-    private JsonElement getClassObject(String json) {
-        JsonElement jsonElement = gson.fromJson(json, JsonElement.class);
-        GSelect gSelect = targetClass.getAnnotation(GSelect.class);
-        String[] selectors = gSelect.value().split(" ");
-        return select(jsonElement, selectors);
     }
 
     private JsonElement select(JsonElement jsonElement, String[] selectors) {
