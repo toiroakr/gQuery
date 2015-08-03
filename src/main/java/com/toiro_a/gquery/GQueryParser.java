@@ -1,0 +1,164 @@
+package com.toiro_a.gquery;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
+import com.toiro_a.gquery.annotation.GSelect;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ * Created by higuchiakira on 2015/08/03.
+ */
+public class GQueryParser {
+    Logger logger = Logger.getLogger("gQuery");
+    private Gson gson;
+    private Class<?> targetClass;
+
+    protected void init(Gson gson, Class<?> targetClass) {
+        this.gson = gson;
+        this.targetClass = targetClass;
+    }
+
+    protected <Target> Target select(String json) {
+        Target target = newTargetInstance();
+        JsonElement baseElement = null;
+        baseElement = getClassObject(json);
+        setFields(target, baseElement);
+
+        logger.log(Level.INFO, "get : " + toString(target));
+        return target;
+    }
+
+    private String toString(Object obj) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("{");
+        Field[] fields = obj.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            field.setAccessible(true);
+            builder.append("\"");
+            builder.append(field.getName());
+            builder.append("\"");
+            builder.append(":");
+            field.setAccessible(true);
+            try {
+                builder.append(gson.toJson(field.get(obj)));
+            } catch (Exception e) {
+                logger.log(Level.WARNING, e.getMessage(), e);
+            }
+            builder.append(", ");
+        }
+        builder.delete(builder.length() - ", ".length(), builder.length());
+        builder.append("}");
+        return builder.toString();
+    }
+
+    private void setFields(Object target, JsonElement baseElement) {
+        Field[] fields = targetClass.getDeclaredFields();
+        for (Field field : fields) {
+            GSelect gSelect = field.getAnnotation(GSelect.class);
+            if (gSelect == null) {
+                continue;
+            }
+            setField(target, field, baseElement);
+        }
+    }
+
+    private void setField(Object target, Field field, JsonElement jsonElement) {
+        GSelect gSelect = field.getAnnotation(GSelect.class);
+        String[] selectors = gSelect.value().split(" ");
+        Class<?> type = field.getType();
+        SelectedValuePair selected = getValue(jsonElement, selectors, type);
+
+        if (selected.valueObject == null) {
+            logger.log(Level.INFO, "value not found : " + field.getName());
+            return;
+        }
+        try {
+            field.setAccessible(true);
+            field.set(target, selected.valueObject);
+            logger.log(Level.INFO, "set : " + field.getName() + " <- " + gson.toJson(selected.jsonElement));
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "error on accessing field : " + field.getName(), e);
+        }
+    }
+
+    protected Object getValue(String json, String[] selectors, Class<?> type) {
+        JsonElement jsonElement = gson.fromJson(json, JsonElement.class);
+        return getValue(jsonElement, selectors, type).valueObject;
+    }
+
+    private SelectedValuePair getValue(JsonElement jsonElement, String[] selectors, Class<?> type) {
+        SelectedValuePair selected = new SelectedValuePair();
+        selected.jsonElement = select(jsonElement, selectors);
+
+        try {
+            selected.valueObject = gson.fromJson(gson.toJson(selected.jsonElement), type);
+        } catch (JsonSyntaxException e) {
+            String message = "type mismatch\n"
+                    + "The type you specifyied : " + type + ", but actually type is different.\n"
+                    + "Json scoped now is below:\n"
+                    + gson.toJson(selected.jsonElement);
+            logger.log(Level.SEVERE, message, e);
+        }
+        return selected;
+    }
+
+    @SuppressWarnings("unchecked")
+    private <Target> Target newTargetInstance() {
+        Target target = null;
+        try {
+            target = (Target) targetClass.newInstance();
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "error on creating target class instance : " + targetClass.getName(), e);
+        }
+        return target;
+    }
+
+    private JsonElement getClassObject(String json) {
+        JsonElement jsonElement = gson.fromJson(json, JsonElement.class);
+        GSelect gSelect = targetClass.getAnnotation(GSelect.class);
+        String[] selectors = gSelect.value().split(" ");
+        return select(jsonElement, selectors);
+    }
+
+    private JsonElement select(JsonElement jsonElement, String[] selectors) {
+        for (int i = 0; i < selectors.length; i++) {
+            String selector = selectors[i];
+            try {
+                jsonElement = select(jsonElement, selector);
+            } catch (NullPointerException e) {
+                logger.log(Level.SEVERE, "error on selecting json element : " + selector + " in " + selectors, e);
+            }
+        }
+        return jsonElement;
+    }
+
+    private JsonElement select(JsonElement jsonElement, String selector) {
+        JsonElement selectedElement = null;
+        String tempJson = gson.toJson(jsonElement);
+        if (jsonElement instanceof JsonObject) {
+            selectedElement = gson.fromJson(tempJson, JsonElement.class).getAsJsonObject().get(selector);
+        } else if (jsonElement instanceof JsonArray) {
+            JsonArray jsonArray = gson.fromJson(tempJson, JsonElement.class).getAsJsonArray();
+            List<JsonElement> elmList = new ArrayList<JsonElement>();
+            for (JsonElement elm : jsonArray) {
+                elmList.add(select(elm, selector));
+            }
+            tempJson = gson.toJson(elmList);
+            selectedElement = gson.fromJson(tempJson, JsonElement.class);
+        }
+        return selectedElement;
+    }
+
+    class SelectedValuePair {
+        Object valueObject;
+        JsonElement jsonElement;
+    }
+}
