@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,7 @@ public class TestGQueryBean {
     @GSelect("b")
     public int[][] b;
     @GSelect("b")
-    public List<int[]> intArrayList;
+    public ArrayList<int[]> intArrayList;
     @GSelect("b")
     public List<List<Integer>> listOfIntegerList;
     @GSelect("c")

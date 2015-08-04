@@ -15,7 +15,12 @@ import org.junit.Test;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
+
+import static com.toiro_a.gquery.bean.TestGQueryBean.L;
+import static com.toiro_a.gquery.bean.TestGQueryBean.M;
+import static com.toiro_a.gquery.bean.TestGQueryBean.S;
 
 /**
  * GQuery Tester.
@@ -59,7 +64,26 @@ public class GQueryTest extends TestCase {
         TestGSonBean gsonBean = gson.fromJson(json, TestGSonBean.class);
         System.out.println(gson.toJson(gsonBean));
 
-        assertTrue(BeanComparator.equals(gQueryBean, gsonBean));
+
+        assertEquals(gsonBean.results.sample.name, gQueryBean.name);
+        assertEquals(gsonBean.results.sample.img.mobile.l, gQueryBean.mobileImgs.get(L));
+        assertEquals(gsonBean.results.sample.img.mobile.s, gQueryBean.mobileImgs.get(S));
+        assertEquals(gsonBean.results.sample.img.pc.l, gQueryBean.pcImgs.get(L));
+        assertEquals(gsonBean.results.sample.img.pc.m, gQueryBean.pcImgs.get(M));
+        assertEquals(gsonBean.results.sample.img.pc.s, gQueryBean.pcImgs.get(S));
+        assertEquals(gsonBean.results.sample.a, gQueryBean.a);
+        assertEquals(gsonBean.results.sample.b[0][0], gQueryBean.b[0][0]);
+        assertEquals(gsonBean.results.sample.b[0][1], gQueryBean.b[0][1]);
+        assertEquals(gsonBean.results.sample.b[0][2], gQueryBean.b[0][2]);
+        assertEquals(gsonBean.results.sample.b[1][0], gQueryBean.b[1][0]);
+        assertEquals(gsonBean.results.sample.b[1][1], gQueryBean.b[1][1]);
+        assertEquals(gsonBean.results.sample.b[1][2], gQueryBean.b[1][2]);
+        assertEquals(gsonBean.results.sample.c.get(0).foo, (int)gQueryBean.c.get(0).get("foo"));
+        assertEquals(gsonBean.results.sample.c.get(0).bar, (int)gQueryBean.c.get(0).get("bar"));
+        assertEquals(gsonBean.results.sample.c.get(1).foo, (int)gQueryBean.c.get(1).get("foo"));
+        assertEquals(gsonBean.results.sample.c.get(1).bar, (int)gQueryBean.c.get(1).get("bar"));
+        assertEquals(gsonBean.results.sample.d.get(0).bar, gQueryBean.dBar.get(0));
+        assertEquals(gsonBean.results.sample.d.get(1).bar, gQueryBean.dBar.get(1));
     }
 
     /**
@@ -74,10 +98,32 @@ public class GQueryTest extends TestCase {
             System.out.println(gQueryBean);
         }
 
-        TestGSonBean2 gsonBean = gson.fromJson(json, TestGSonBean2.class);
-        System.out.println(gson.toJson(gsonBean));
+        TestGSonBean2 gsonBeans = gson.fromJson(json, TestGSonBean2.class);
+        System.out.println(gson.toJson(gsonBeans));
 
-        assertTrue(BeanComparator.equals(gQueryBeans,gsonBean));
+        for(int i = 0; i < gQueryBeans.size(); i++) {
+            TestGQueryBean gQueryBean = gQueryBeans.get(i);
+            TestGSonBean2.Result.Sample gsonBean = gsonBeans.results.sample.get(i);
+            assertEquals(gsonBean.name, gQueryBean.name);
+            assertEquals(gsonBean.img.mobile.l, gQueryBean.mobileImgs.get(L));
+            assertEquals(gsonBean.img.mobile.s, gQueryBean.mobileImgs.get(S));
+            assertEquals(gsonBean.img.pc.l, gQueryBean.pcImgs.get(L));
+            assertEquals(gsonBean.img.pc.m, gQueryBean.pcImgs.get(M));
+            assertEquals(gsonBean.img.pc.s, gQueryBean.pcImgs.get(S));
+            assertEquals(gsonBean.a, gQueryBean.a);
+            assertEquals(gsonBean.b[0][0], gQueryBean.b[0][0]);
+            assertEquals(gsonBean.b[0][1], gQueryBean.b[0][1]);
+            assertEquals(gsonBean.b[0][2], gQueryBean.b[0][2]);
+            assertEquals(gsonBean.b[1][0], gQueryBean.b[1][0]);
+            assertEquals(gsonBean.b[1][1], gQueryBean.b[1][1]);
+            assertEquals(gsonBean.b[1][2], gQueryBean.b[1][2]);
+            assertEquals(gsonBean.c.get(0).foo, (int)gQueryBean.c.get(0).get("foo"));
+            assertEquals(gsonBean.c.get(0).bar, (int)gQueryBean.c.get(0).get("bar"));
+            assertEquals(gsonBean.c.get(1).foo, (int)gQueryBean.c.get(1).get("foo"));
+            assertEquals(gsonBean.c.get(1).bar, (int)gQueryBean.c.get(1).get("bar"));
+            assertEquals(gsonBean.d.get(0).bar, gQueryBean.dBar.get(0));
+            assertEquals(gsonBean.d.get(1).bar, gQueryBean.dBar.get(1));
+        }
     }
 
     /**

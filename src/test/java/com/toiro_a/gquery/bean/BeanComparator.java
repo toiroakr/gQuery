@@ -29,26 +29,26 @@ public class BeanComparator {
         return equal;
     }
 
-    public static boolean equals(List<TestGQueryBean> gqueries, TestGSonBean2 gsons) {
+    public static boolean equals(List<TestGQueryBean> gqueryBeans, TestGSonBean2 gsons) {
         boolean equal = true;
-        for(int i = 0; i < gqueries.size(); i++) {
-            TestGQueryBean gquery = gqueries.get(i);
-            TestGSonBean2.Result.Sample gson = gsons.results.sample.get(i);
-            equal = equal & gquery.name.equals(gson.name);
-            equal = equal & gquery.mobileImgs.get(L).equals(gson.img.mobile.l);
-            equal = equal & gquery.mobileImgs.get(S).equals(gson.img.mobile.s);
-            equal = equal & gquery.pcImgs.get(L).equals(gson.img.pc.l);
-            equal = equal & gquery.pcImgs.get(M).equals(gson.img.pc.m);
-            equal = equal & gquery.pcImgs.get(S).equals(gson.img.pc.s);
-            equal = equal & gquery.a == gson.a;
-            equal = equal & Arrays.equals(gquery.b[0], gson.b[0]);
-            equal = equal & Arrays.equals(gquery.b[1], gson.b[1]);
-            equal = equal & gquery.c.get(0).get("foo") == gson.c.get(0).foo;
-            equal = equal & gquery.c.get(0).get("bar") == gson.c.get(0).bar;
-            equal = equal & gquery.c.get(1).get("foo") == gson.c.get(1).foo;
-            equal = equal & gquery.c.get(1).get("bar") == gson.c.get(1).bar;
-            equal = equal & gquery.dBar.get(0) == gson.d.get(0).bar;
-            equal = equal & gquery.dBar.get(1) == gson.d.get(1).bar;
+        for(int i = 0; i < gqueryBeans.size(); i++) {
+            TestGQueryBean gQueryBean = gqueryBeans.get(i);
+            TestGSonBean2.Result.Sample gsonBean = gsons.results.sample.get(i);
+            equal = equal & gQueryBean.name.equals(gsonBean.name);
+            equal = equal & gQueryBean.mobileImgs.get(L).equals(gsonBean.img.mobile.l);
+            equal = equal & gQueryBean.mobileImgs.get(S).equals(gsonBean.img.mobile.s);
+            equal = equal & gQueryBean.pcImgs.get(L).equals(gsonBean.img.pc.l);
+            equal = equal & gQueryBean.pcImgs.get(M).equals(gsonBean.img.pc.m);
+            equal = equal & gQueryBean.pcImgs.get(S).equals(gsonBean.img.pc.s);
+            equal = equal & gQueryBean.a == gsonBean.a;
+            equal = equal & Arrays.equals(gQueryBean.b[0], gsonBean.b[0]);
+            equal = equal & Arrays.equals(gQueryBean.b[1], gsonBean.b[1]);
+            equal = equal & gQueryBean.c.get(0).get("foo") == gsonBean.c.get(0).foo;
+            equal = equal & gQueryBean.c.get(0).get("bar") == gsonBean.c.get(0).bar;
+            equal = equal & gQueryBean.c.get(1).get("foo") == gsonBean.c.get(1).foo;
+            equal = equal & gQueryBean.c.get(1).get("bar") == gsonBean.c.get(1).bar;
+            equal = equal & gQueryBean.dBar.get(0) == gsonBean.d.get(0).bar;
+            equal = equal & gQueryBean.dBar.get(1) == gsonBean.d.get(1).bar;
         }
         return equal;
     }

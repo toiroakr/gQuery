@@ -27,12 +27,12 @@ public class TestGSonBean2 {
                 }
             }
 
-            class C {
+            public class C {
                 public int foo;
                 public int bar;
             }
 
-            class D {
+            public class D {
                 public String foo;
                 public Object bar;
             }
