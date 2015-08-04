@@ -41,7 +41,6 @@ Simple use cases will look something like this:
 
 * java class correspond to json
 ```java
-// 
 @GSelect("results sample")
 public class SampleObject {
 	@GSelect("a")
