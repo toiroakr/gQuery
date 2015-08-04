@@ -32,8 +32,8 @@ public class GQuery {
         return parser.select(json);
     }
 
-    public <Target> List<Target> selectList(String json, Class<Target> targetClass) {
-        init(targetClass);
+    public <Target> List<Target> selectList(String json, Class<Target> parameterizedClass) {
+        init(parameterizedClass);
         return parser.selectList(json);
     }
 

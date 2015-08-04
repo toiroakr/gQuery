@@ -16,7 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * class to parsing json
+ * class for parsing json
  * Created by higuchiakira on 2015/08/03.
  */
 public class GQueryParser {
