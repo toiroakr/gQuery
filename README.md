@@ -8,13 +8,15 @@ You can download jar files from [GitHub's page][2].
 
 Or use Gradle:
 
-```groovy:project's build.gradle
+* project's build.gradle
+```groovy
 repositories {
   maven{ url 'http://toiroakr.github.io/maven/' }
 }
 ```
 
-```groovy:app's build.gradle
+* app's build.gradle
+```groovy:
 dependencies {
     compile 'com.github.toiroakr.gquery:gquery:0.1'
 }
