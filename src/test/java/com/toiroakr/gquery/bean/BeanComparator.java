@@ -1,9 +1,7 @@
-package com.toiro_a.gquery.bean;
+package com.toiroakr.gquery.bean;
 
 import java.util.Arrays;
 import java.util.List;
-
-import static com.toiro_a.gquery.bean.TestGQueryBean.*;
 
 /**
  * Created by higuchiakira on 2015/08/03.

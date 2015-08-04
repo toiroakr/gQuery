@@ -1,10 +1,9 @@
-package com.toiro_a.gquery;
+package com.toiroakr.gquery;
 
 import com.google.gson.Gson;
-import com.toiro_a.gquery.bean.BeanComparator;
-import com.toiro_a.gquery.bean.TestGQueryBean;
-import com.toiro_a.gquery.bean.TestGSonBean;
-import com.toiro_a.gquery.bean.TestGSonBean2;
+import com.toiroakr.gquery.bean.TestGQueryBean;
+import com.toiroakr.gquery.bean.TestGSonBean;
+import com.toiroakr.gquery.bean.TestGSonBean2;
 
 import junit.framework.TestCase;
 
@@ -15,12 +14,11 @@ import org.junit.Test;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
-import static com.toiro_a.gquery.bean.TestGQueryBean.L;
-import static com.toiro_a.gquery.bean.TestGQueryBean.M;
-import static com.toiro_a.gquery.bean.TestGQueryBean.S;
+import static com.toiroakr.gquery.bean.TestGQueryBean.L;
+import static com.toiroakr.gquery.bean.TestGQueryBean.M;
+import static com.toiroakr.gquery.bean.TestGQueryBean.S;
 
 /**
  * GQuery Tester.

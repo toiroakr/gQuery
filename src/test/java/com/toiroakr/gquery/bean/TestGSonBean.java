@@ -1,12 +1,12 @@
-package com.toiro_a.gquery.bean;
+package com.toiroakr.gquery.bean;
 
 import java.util.List;
 
-public class TestGSonBean2 {
+public class TestGSonBean {
     public Result results;
 
     public class Result {
-        public List<Sample> sample;
+        public Sample sample;
 
         public class Sample {
             public String name;

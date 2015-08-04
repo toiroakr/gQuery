@@ -1,4 +1,4 @@
-package com.toiro_a.gquery.annotation;
+package com.toiroakr.gquery.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

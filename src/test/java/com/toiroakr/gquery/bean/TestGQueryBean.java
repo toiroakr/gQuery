@@ -1,11 +1,8 @@
-package com.toiro_a.gquery.bean;
+package com.toiroakr.gquery.bean;
 
 import com.google.gson.Gson;
-import com.toiro_a.gquery.annotation.GSelect;
+import com.toiroakr.gquery.annotation.GSelect;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;

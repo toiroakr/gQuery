@@ -1,11 +1,11 @@
-package com.toiro_a.gquery;
+package com.toiroakr.gquery;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import com.toiro_a.gquery.annotation.GSelect;
+import com.toiroakr.gquery.annotation.GSelect;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;

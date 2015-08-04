@@ -1,4 +1,4 @@
-package com.toiro_a.gquery;
+package com.toiroakr.gquery;
 
 import com.google.gson.Gson;
 
