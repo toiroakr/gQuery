@@ -18,7 +18,7 @@ repositories {
 * app's build.gradle
 ```groovy:
 dependencies {
-    compile 'com.github.toiroakr.gquery:gquery:0.1'
+    compile 'com.github.toiroakr:gquery:0.1.0'
 }
 ```
 
@@ -65,6 +65,6 @@ boolean a = new GQuery().get(json, "results sample a", String.class); // -> true
 You can see more sample in [test code][3].
 
 [1]: https://github.com/google/gson
-[2]: https://github.com/toiroakr/maven/tree/gh-pages/com/github/toiroakr/gquery/gquery
+[2]: https://github.com/toiroakr/maven/tree/gh-pages/com/github/toiroakr/gquery
 [3]: https://github.com/toiroakr/gQuery/tree/master/src/test/java/com/toiroakr/gquery
 

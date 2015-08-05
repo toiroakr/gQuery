@@ -1,4 +1,4 @@
-group 'com.github.toiroakr.gquery'
+group 'com.github.toiroakr'
 version '0.1.0'
 
 apply plugin: 'groovy'
@@ -28,7 +28,6 @@ task sourcesJar(type: Jar, dependsOn:classes) {
 }
 
 uploadArchives {
-
     [compileJava, compileTestJava].each{
         it.options.encoding = 'UTF-8'
         it.options.compilerArgs += ['-source', '1.6', '-target', '1.6']
