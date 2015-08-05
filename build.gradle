@@ -1,5 +1,5 @@
 group 'com.github.toiroakr.gquery'
-version '0.1'
+version '0.1.0'
 
 apply plugin: 'groovy'
 apply plugin: 'java'
@@ -22,7 +22,17 @@ ext {
     mavenRepository = '../local/maven'
 }
 
+task sourcesJar(type: Jar, dependsOn:classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
 uploadArchives {
+
+    [compileJava, compileTestJava].each{
+        it.options.encoding = 'UTF-8'
+        it.options.compilerArgs += ['-source', '1.6', '-target', '1.6']
+    }
     repositories {
         mavenDeployer {
             repository(url: uri(mavenRepository))
