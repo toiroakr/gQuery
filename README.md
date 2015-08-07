@@ -52,7 +52,7 @@ public class SampleObject {
 	@GSelect("c d")
     List<Map<String, Integer>> d; // -> [{ "foo":1, "bar":3 }, { "foo":2, "bar":1 }]
 	@GSelect("c d foo")
-    List<Integer> dFoo; // -> [1, 2]
+    List<Integer> foo; // -> [1, 2]
 }
 ```
 * get java object from json
