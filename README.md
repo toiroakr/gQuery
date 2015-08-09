@@ -1,4 +1,5 @@
 # gQuery
+
 this software includes the work that is distributed in the Apache License 2.0
 ---------
 gQuery is able to get json element like jQuery with gson.
