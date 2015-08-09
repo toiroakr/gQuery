@@ -9,8 +9,8 @@ import java.util.List;
  * Created by higuchiakira on 2015/08/03.
  */
 public class GQuery {
-    private GQueryParser parser;
-    private Gson gson;
+    private final GQueryParser parser;
+    private final Gson gson;
 
     public GQuery() {
         this(new Gson());
