@@ -5,10 +5,9 @@ gQuery is able to get json element like jQuery with gson.
 [google/gson][1] (operation check with 2.3.1)
 
 ## Download
-You can download jar files from [GitHub's page][2].
+You can download jar files from [bintray.com][2].
 
 Or use Gradle:
-
 * build.gradle
 ```groovy
 repositories {
@@ -19,6 +18,17 @@ dependencies {
     compile 'com.toiroakr:gquery:0.1.2'
 }
 ```
+
+Or use Maven:
+```xml
+<dependency>
+  <groupId>com.toiroakr</groupId>
+  <artifactId>gquery</artifactId>
+  <version>0.1.2</version>
+  <type>pom</type>
+</dependency>
+```
+
 
 ## Usage
 Simple use cases will look something like this:
@@ -63,6 +73,6 @@ boolean a = new GQuery().get(json, "results sample a", String.class); // -> true
 You can see more sample in [test code][3].
 
 [1]: https://github.com/google/gson
-[2]: https://github.com/toiroakr/maven/tree/gh-pages/com/github/toiroakr/gquery
+[2]: https://bintray.com/toiroakr/maven/gQuery/view
 [3]: https://github.com/toiroakr/gQuery/tree/master/src/test/java/com/toiroakr/gquery
 
