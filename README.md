@@ -1,5 +1,4 @@
 # gQuery
----------
 gQuery is able to get json element like jQuery with gson.
 
 ## Dependencies
