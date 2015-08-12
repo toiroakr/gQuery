@@ -29,3 +29,5 @@ proguard/
 .gradle/
 build/
 bin/
+gradle-app.setting
+gradle.properties

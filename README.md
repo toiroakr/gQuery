@@ -1,9 +1,9 @@
 # gQuery
 ---------
-_this software includes the work that is distributed in the Apache License 2.0_
-
 gQuery is able to get json element like jQuery with gson.
-(gQuery depend on [google/gson][1].)
+
+## Dependencies
+[google/gson][1] (operation check with 2.3.1)
 
 ## Download
 You can download jar files from [GitHub's page][2].
@@ -13,11 +13,11 @@ Or use Gradle:
 * build.gradle
 ```groovy
 repositories {
-  maven{ url 'http://toiroakr.github.io/maven/' }
+  jcenter()
 }
 
 dependencies {
-    compile 'com.github.toiroakr:gquery:0.1.2'
+    compile 'com.toiroakr:gquery:0.1.2'
 }
 ```
 

@@ -1,13 +1,10 @@
-group 'com.github.toiroakr'
-version '0.1.2'
-
 apply plugin: 'java'
 apply plugin: 'maven'
-
-sourceCompatibility = 1.6
+apply plugin: 'maven-publish'
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
@@ -15,24 +12,64 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-// maven ローカルリポジトリのパス
-ext {
-    mavenRepository = '../local/maven'
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.2'
+    }
 }
+apply plugin: 'com.jfrog.bintray'
+
+def gQueryVersion = '0.1.2'
+
+group 'com.toiroakr'
+version gQueryVersion
 
 task sourcesJar(type: Jar, dependsOn:classes) {
     classifier = 'sources'
     from sourceSets.main.allSource
 }
 
-uploadArchives {
-    [compileJava].each{
-        it.options.encoding = 'UTF-8'
-        it.options.compilerArgs += ['-source', '1.6', '-target', '1.6']
-    }
-    repositories {
-        mavenDeployer {
-            repository(url: uri(mavenRepository))
+task javadocJar(type: Jar, dependsOn:javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+bintray {
+    user = "${bintrayUser}"
+    key = "${bintrayApiKey}"
+    publications = ['bintrayPublication']
+    configurations = ['archives']
+    pkg {
+        repo = 'maven'
+        name = 'gQuery'
+        userOrg = 'toiroakr'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/toiroakr/gQuery.git'
+        version {
+            name = gQueryVersion
+            desc = 'gQuery'
+            vcsTag = gQueryVersion
+            attributes = ['gquery' : 'com.toiroakr:gquery']
         }
     }
+}
+
+publishing {
+    publications{
+        bintrayPublication(MavenPublication){
+            from components.java
+        }
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.4'
 }
