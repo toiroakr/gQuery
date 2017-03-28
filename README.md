@@ -61,15 +61,15 @@ Simple use cases will look something like this:
 * sample json:
 ```json:sample.json
 {
-	"results": {
-		"sample": {
-			"a": true,
-			"b": [[1,2,3], [4,5,6]],
-			"c": {
-          		d:[{ "foo":1, "bar":3 }, { "foo":2, "bar":1 }]
-            }
-		}
-	}
+  "results": {
+    "sample": {
+      "a": true,
+      "b": [[1,2,3], [4,5,6]],
+      "c": {
+        "d": [{ "foo":1, "bar":3}, { "foo":2, "bar":1 }]
+      }
+    }
+  }
 }
 ```
 
