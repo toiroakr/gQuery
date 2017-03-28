@@ -77,13 +77,16 @@ Simple use cases will look something like this:
 ```java
 @GSelect("results sample")
 public class SampleObject {
-	@GSelect("a")
+    @GSelect("a")
     boolean a; // -> true
-	@GSelect("b")
+    
+    @GSelect("b")
     List<int[]> b; // -> [[1,2,3], [4,5,6]]
-	@GSelect("c d")
+    
+    @GSelect("c d")
     List<Map<String, Integer>> d; // -> [{ "foo":1, "bar":3 }, { "foo":2, "bar":1 }]
-	@GSelect("c d foo")
+
+    @GSelect("c d foo")
     List<Integer> foo; // -> [1, 2]
 }
 ```
